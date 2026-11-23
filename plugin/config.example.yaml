@@ -1,0 +1,17 @@
+# Copy this block into the target Hermes profile's config.yaml.
+plugins:
+  # The direct verifier timeout is 28 s; leave headroom for scheduling.
+  hook_callback_timeout: 60
+  entries:
+    risk-gated-verification:
+      enabled: true
+      llm:
+        # The verifier deliberately uses a different model than the drafter.
+        allow_model_override: true
+        allowed_models:
+          - inkling-2-small
+      settings:
+        auto_review: true
+        review_medium: true
+        review_high: true
+        use_decision_model: true

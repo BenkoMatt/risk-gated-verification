@@ -1,0 +1,26 @@
+name: risk-gated-verification
+version: "0.1.0"
+description: "Classify each turn, inject a verification policy, review medium/high-risk replies with an independent model, and require evidence after code edits."
+author: "Caddy"
+provides_hooks:
+  - pre_llm_call
+  - post_tool_call
+  - transform_llm_output
+  - pre_verify
+config_schema:
+  auto_review:
+    type: bool
+    default: true
+    description: "Run an independent adversarial review on medium/high-risk replies."
+  review_medium:
+    type: bool
+    default: true
+    description: "Review factual/technical medium-risk turns."
+  review_high:
+    type: bool
+    default: true
+    description: "Review high-consequence client/security/config/finance turns."
+  use_decision_model:
+    type: bool
+    default: true
+    description: "Use a typed decision model for ambiguous risk classification; regex fallback."
